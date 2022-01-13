@@ -1,6 +1,7 @@
 package edu.file.uploader.controller;
 
 import edu.file.uploader.model.UploadedFile;
+import edu.file.uploader.model.UploadedFileDataDto;
 import edu.file.uploader.model.UploadedFileDto;
 import edu.file.uploader.service.FileUploaderService;
 import org.slf4j.Logger;
@@ -50,10 +51,11 @@ public class UploaderController {
     }
 
     @GetMapping("/send")
-    public ResponseEntity<UploadedFile> sendFile(@RequestParam("id") Long id) {
-        final UploadedFile file = fileUploaderService.getUploadedFile(id);
-        if (!ObjectUtils.isEmpty(file)) {
-            return ResponseEntity.ok(file);
+    public ResponseEntity<UploadedFileDataDto> sendFile(@RequestParam("id") Long id) {
+        final UploadedFileDataDto data = fileUploaderService.getUploadedFileData(id);
+        if (!ObjectUtils.isEmpty(data)) {
+            return ResponseEntity.ok()
+                    .body(data);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -64,4 +66,9 @@ public class UploaderController {
         return fileUploaderService.getAllFilesEndpoints();
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<UploadedFileDto> deleteFile(@RequestParam("id") Long id) {
+        fileUploaderService.deleteFile(id);
+        return ResponseEntity.ok().build();
+    }
 }

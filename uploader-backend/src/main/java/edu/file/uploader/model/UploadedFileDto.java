@@ -10,9 +10,11 @@ import java.util.Date;
 @Setter
 @Builder
 public class UploadedFileDto {
+    private Long id;
     private String name;
     private Date date;
-    private String url;
+    private String downloadUrl;
+    private String sendUrl;
     private String type;
     private String size;
 }

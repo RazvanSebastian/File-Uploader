@@ -1,6 +1,7 @@
 package edu.file.uploader.service;
 
 import edu.file.uploader.model.UploadedFile;
+import edu.file.uploader.model.UploadedFileDataDto;
 import edu.file.uploader.model.UploadedFileDto;
 import edu.file.uploader.repository.FileUploaderRepository;
 import org.slf4j.Logger;
@@ -44,6 +45,12 @@ public class FileUploaderService {
         return fileUploaderRepository.getById(id);
     }
 
+    public UploadedFileDataDto getUploadedFileData(final Long id) {
+        LOGGER.info(String.format("Find file with id %d", id));
+        final UploadedFile file = fileUploaderRepository.getById(id);
+        return new UploadedFileDataDto(file.getData());
+    }
+
     public List<UploadedFileDto> getAllFilesEndpoints() {
         LOGGER.info("Generate all endpoints for retrieving files");
         final List<UploadedFile> files = fileUploaderRepository.findAll();
@@ -52,13 +59,20 @@ public class FileUploaderService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteFile(final Long id) {
+        LOGGER.info(String.format("Delete file with id %d", id));
+        this.fileUploaderRepository.deleteById(id);
+    }
+
     private UploadedFileDto buildUploadedFileDto(final UploadedFile file) {
         return UploadedFileDto.builder()
+                .id(file.getId())
                 .name(file.getName())
                 .type(file.getType())
-                .size(String.format("%d KB", (file.getSize() == 0 ? 0 : file.getSize()/1024)))
+                .size(String.format("%d KB", (file.getSize() == 0 ? 0 : file.getSize() / 1024)))
                 .date(file.getDate())
-                .url(String.format("http://localhost:8080/files/download?id=%d", file.getId()))
+                .downloadUrl(String.format("http://localhost:8080/files/download?id=%d", file.getId()))
+                .sendUrl(String.format("http://localhost:8080/files/send?id=%d", file.getId()))
                 .build();
     }
 

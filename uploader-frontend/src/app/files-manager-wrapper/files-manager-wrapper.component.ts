@@ -10,6 +10,7 @@ import { FileService } from '../service/files.service';
 })
 export class FilesManagerWrapperComponent implements OnInit {
   fileList: FileModel[] = [];
+  selectedImageFile: FileModel | null = null;
 
   constructor(private fileService: FileService) {}
 
@@ -21,7 +22,11 @@ export class FilesManagerWrapperComponent implements OnInit {
     this.initializeFileList();
   }
 
-  initializeFileList() {
+  onShowImageEvent(file: FileModel) {
+    this.selectedImageFile = file;
+  }
+
+  private initializeFileList() {
     this.fileService
       .getAllFilesEndpoints()
       .pipe(take(1))

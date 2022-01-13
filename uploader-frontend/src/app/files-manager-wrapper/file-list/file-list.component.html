@@ -1,4 +1,4 @@
-<div class="container p-4 mt-2 border">
+<div class="container p-4 mt-2 mb-2 border">
   <h3>Files list</h3>
   <table class="table">
     <thead>
@@ -9,24 +9,42 @@
         <th scope="col">Size</th>
         <th scope="col">Type</th>
         <th scope="col">Show image</th>
-        <th scope="col">Download image</th>
+        <th scope="col">Download file</th>
+        <th scope="col">Delete file</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let file of fileList; let id = index">
-        <th scope="row">{{ id }}</th>
+      <tr *ngFor="let file of fileList; let index = index">
+        <th scope="row">{{ index }}</th>
         <td>{{ file.name }}</td>
         <td>{{ file.date | date }}</td>
         <td>{{ file.size }}</td>
         <td>{{ file.type }}</td>
         <td>
-          <button type="button" class="btn btn-outline-secondary" (click)="showImage(file)">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="showImage(file)"
+          >
             <i class="bi bi-image"></i>
           </button>
         </td>
         <td>
-          <button type="button" class="btn btn-outline-secondary" (click)="downloadImage(file)">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="downloadFile(file)"
+          >
             <i class="bi bi-cloud-download"></i>
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="deleteFile(file, index)"
+          >
+            <i class="bi bi-trash"></i>
           </button>
         </td>
       </tr>

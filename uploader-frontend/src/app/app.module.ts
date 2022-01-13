@@ -6,16 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FileUploadComponent } from './files-manager-wrapper/file-upload/file-upload.component';
 import { FileListComponent } from './files-manager-wrapper/file-list/file-list.component';
-import { FileDownloadComponent } from './files-manager-wrapper/file-download/file-download.component';
 import { FilesManagerWrapperComponent } from './files-manager-wrapper/files-manager-wrapper.component';
+import { ImageFileDisplayComponent } from './files-manager-wrapper/image-file-display/image-file-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FileUploadComponent,
     FileListComponent,
-    FileDownloadComponent,
-    FilesManagerWrapperComponent
+    FilesManagerWrapperComponent,
+    ImageFileDisplayComponent
   ],
   imports: [
     BrowserModule,

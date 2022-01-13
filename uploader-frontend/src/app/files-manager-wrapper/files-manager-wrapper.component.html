@@ -1,2 +1,8 @@
-<app-file-upload (uploadSuccessEvent)="onUploadSuccessEvent($event)"></app-file-upload> 
-<app-file-list [fileList]="fileList"></app-file-list>
+<app-file-upload
+  (uploadSuccessEvent)="onUploadSuccessEvent($event)"
+></app-file-upload>
+<app-file-list
+  [fileList]="fileList"
+  (showImageEvent)="onShowImageEvent($event)"
+></app-file-list>
+<app-image-file-display [file]="selectedImageFile"></app-image-file-display>

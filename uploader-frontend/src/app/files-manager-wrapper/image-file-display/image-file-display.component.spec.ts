@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileDownloadComponent } from './file-download.component';
+import { ImageFileDisplayComponent } from './image-file-display.component';
 
-describe('FileDownloadComponent', () => {
-  let component: FileDownloadComponent;
-  let fixture: ComponentFixture<FileDownloadComponent>;
+describe('ImageFileDisplayComponent', () => {
+  let component: ImageFileDisplayComponent;
+  let fixture: ComponentFixture<ImageFileDisplayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileDownloadComponent ]
+      declarations: [ ImageFileDisplayComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FileDownloadComponent);
+    fixture = TestBed.createComponent(ImageFileDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
