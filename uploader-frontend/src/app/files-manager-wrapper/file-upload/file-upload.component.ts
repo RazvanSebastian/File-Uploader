@@ -1,6 +1,6 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FileService } from '../service/FileService.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FileService } from 'src/app/service/files.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,6 +12,9 @@ export class FileUploadComponent implements OnInit {
   uploadProgress?: number = 0;
   isUploadFinished: boolean = false;
   isUploadedSuccess: boolean = true;
+
+  @Output()
+  uploadSuccessEvent = new EventEmitter();
 
   constructor(private fileService: FileService) {}
 
@@ -36,6 +39,7 @@ export class FileUploadComponent implements OnInit {
             } else if (event instanceof HttpResponse) {
               this.isUploadFinished = true;
               this.isUploadedSuccess = true;
+              this.uploadSuccessEvent.emit(event.body);
             }
           },
           (err) => {
