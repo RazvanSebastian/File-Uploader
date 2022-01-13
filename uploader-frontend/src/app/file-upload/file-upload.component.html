@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8 mt-2">
+      <label class="btn btn-default p-0">
+        <input type="file" (change)="selectFile($event)" />
+      </label>
+    </div>
+    <div class="col-4 mt-2">
+      <button
+        class="btn btn-success btn-sm"
+        [disabled]="!selectedFiles"
+        (click)="upload()"
+      >
+        Upload file
+      </button>
+    </div>
+  </div>
+  <div class="progress" *ngIf="!isUploadFinished && uploadProgress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [style.width.%]="uploadProgress"
+      [attr.aria-valuenow]="uploadProgress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      {{ uploadProgress }}%
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div
+      class="alert alert-success"
+      role="alert"
+      *ngIf="isUploadFinished && isUploadedSuccess"
+    >
+      File succesfully uploaded!
+    </div>
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="isUploadFinished && !isUploadedSuccess"
+    >
+      Something went wrong wile uploading file!
+    </div>
+  </div>
+</div>
