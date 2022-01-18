@@ -28,7 +28,7 @@ export class FileListComponent implements OnInit {
 
   downloadFile(file: FileModel) {
     this.fileService
-      .downloadFile(file.downloadUrl)
+      .downloadFile(file.id)
       .pipe(take(1))
       .subscribe((data) => {
         saveAs(data, file.name);

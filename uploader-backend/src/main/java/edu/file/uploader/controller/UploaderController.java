@@ -24,14 +24,17 @@ public class UploaderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploaderController.class);
 
-    @Autowired
-    private FileUploaderService fileUploaderService;
+    private final FileUploaderService fileUploaderService;
+
+    public UploaderController(FileUploaderService fileUploaderService) {
+        this.fileUploaderService = fileUploaderService;
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             final UploadedFile uploadedFile = fileUploaderService.save(file);
-            return ResponseEntity.ok(String.format("http://localhost:8080/file/download?id=%d", uploadedFile.getId()));
+            return ResponseEntity.ok().build();
         } catch (IOException e) {
             LOGGER.error(String.format("Could not save the file %s ", file.getName()));
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body("The file could not be stored!");
@@ -62,8 +65,8 @@ public class UploaderController {
     }
 
     @GetMapping
-    public List<UploadedFileDto> getAllFilesEndpoints() {
-        return fileUploaderService.getAllFilesEndpoints();
+    public List<UploadedFileDto> getAllFilesMetadata() {
+        return fileUploaderService.getAllFilesMetadata();
     }
 
     @DeleteMapping("/delete")

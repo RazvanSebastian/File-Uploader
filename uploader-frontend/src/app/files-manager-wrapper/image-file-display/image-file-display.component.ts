@@ -15,12 +15,16 @@ export class ImageFileDisplayComponent implements OnInit {
   set file(file: FileModel | null) {
     if (file?.type.startsWith('image/')) {
       this.fileService
-        .getFile(file.sendUrl)
+        .getFile(file.id)
         .pipe(take(1))
         .subscribe((response: StoredFileData) => {
           this.imageData = `data:${file.type};base64,${response.data}`;
           const imgElement = document.querySelector('#selectedImage');
-          imgElement?.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+          imgElement?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'center',
+          });
         });
     }
   }

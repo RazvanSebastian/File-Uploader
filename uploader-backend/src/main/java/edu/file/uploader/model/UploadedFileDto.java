@@ -13,8 +13,6 @@ public class UploadedFileDto {
     private Long id;
     private String name;
     private Date date;
-    private String downloadUrl;
-    private String sendUrl;
     private String type;
     private String size;
 }

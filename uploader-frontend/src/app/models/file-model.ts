@@ -4,10 +4,8 @@ export interface FileModel {
   date: Date;
   size: string;
   type: string;
-  downloadUrl: string;
-  sendUrl: string;
 }
 
 export interface StoredFileData {
-  data: any;
+  data: string;
 }

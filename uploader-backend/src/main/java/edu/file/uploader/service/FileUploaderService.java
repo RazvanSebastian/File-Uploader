@@ -6,7 +6,6 @@ import edu.file.uploader.model.UploadedFileDto;
 import edu.file.uploader.repository.FileUploaderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,8 +20,11 @@ public class FileUploaderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploaderService.class);
 
-    @Autowired
-    private FileUploaderRepository fileUploaderRepository;
+    private final FileUploaderRepository fileUploaderRepository;
+
+    public FileUploaderService(FileUploaderRepository fileUploaderRepository) {
+        this.fileUploaderRepository = fileUploaderRepository;
+    }
 
     public UploadedFile save(final MultipartFile file) throws IOException {
         LOGGER.info(String.format("Save file with name %s", file.getName()));
@@ -51,8 +53,8 @@ public class FileUploaderService {
         return new UploadedFileDataDto(file.getData());
     }
 
-    public List<UploadedFileDto> getAllFilesEndpoints() {
-        LOGGER.info("Generate all endpoints for retrieving files");
+    public List<UploadedFileDto> getAllFilesMetadata() {
+        LOGGER.info("Get all files metadata");
         final List<UploadedFile> files = fileUploaderRepository.findAll();
         return files.stream()
                 .map(file -> buildUploadedFileDto(file))
@@ -71,8 +73,6 @@ public class FileUploaderService {
                 .type(file.getType())
                 .size(String.format("%d KB", (file.getSize() == 0 ? 0 : file.getSize() / 1024)))
                 .date(file.getDate())
-                .downloadUrl(String.format("http://localhost:8080/files/download?id=%d", file.getId()))
-                .sendUrl(String.format("http://localhost:8080/files/send?id=%d", file.getId()))
                 .build();
     }
 
